@@ -1,3 +1,5 @@
+// Create an EC2 instance for WordPress
+
 resource "aws_instance" "wordpress" {
     ami = var.ami_id
     instance_type = "t2.nano"

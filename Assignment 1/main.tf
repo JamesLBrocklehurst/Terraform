@@ -40,6 +40,7 @@ resource "aws_security_group" "wp_sg" {
     }
 }
 
+// creation of the EC2 instance for the wordpress server
 module "ec2" {
   source = "./modules/ec2"
   ami_id = var.ami_id
