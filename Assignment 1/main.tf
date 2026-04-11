@@ -4,8 +4,11 @@ data "aws_vpc" "default" {
     default = true
 }
 
-data "aws_subnet_ids" "default" {
-    vpc_id = data.aws_vpc.default.id
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
 }
 
 // creating the security group for the server
@@ -37,3 +40,10 @@ resource "aws_security_group" "wp_sg" {
     }
 }
 
+module "ec2" {
+  source = "./modules/ec2"
+  ami_id = var.ami_id
+  key_name = var.key_name
+  subnet_id = data.aws_subnets.default.ids[0]
+  vpc_id = [aws_security_group.wp_sg.id]
+}
