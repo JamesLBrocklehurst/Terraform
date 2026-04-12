@@ -36,7 +36,7 @@ User data script embedded or referenced
 
 A successful WordPress installation
 
-#### ***Learning Outcomes***
+### ***Learning Outcomes***
 
 During this assignment I had some inital troubles with deploying the user data onto the EC2 instance that was running after the Terraform apply. 
 
