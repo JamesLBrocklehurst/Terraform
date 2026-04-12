@@ -1,0 +1,21 @@
+#cloud-config
+
+package_update: true
+
+packages:
+  - nginx
+  - python3-certbot-nginx
+
+runcmd:
+  # Write a basic landing page
+  - echo "<h1>Hello, World! Welcome to my site. This has been provisioned with Terraform.</h1>" > /var/www/html/index.html
+
+  # Start NGINX so Certbot can reach port 80
+  - systemctl enable nginx
+  - systemctl start nginx
+
+  # Obtain cert and configure HTTPS – Certbot rewrites the NGINX config
+  - certbot --nginx --non-interactive --agree-tos --redirect --email admin@${domain_name} -d ${domain_name} -d www.${domain_name}
+
+  # Reload to apply the new config
+  - systemctl reload nginx
