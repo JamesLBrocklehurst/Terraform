@@ -66,3 +66,4 @@ resource "aws_eip" "web_eip" {
   instance = aws_instance.webserver.id
   domain   = "vpc"
 }
+
